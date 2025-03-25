@@ -2522,6 +2522,43 @@
 							<div class="row h-100 justify-content-center align-items-center">
 								<div class="col-lg-10 col-md-10">
 									<h2 class="text-center title wow fadeIn fontColor" data-wow-duration="3s" data-wow-delay="0.3s">Kirim Ucapan & Doa</h2>
+
+
+<form id="ucapanForm">
+    <input type="hidden" id="client_id_ucapan" value="client_123">
+    <input type="text" id="nama_ucapan" placeholder="Nama Anda" required>
+    <textarea id="ucapan" placeholder="Tulis ucapan..." required></textarea>
+    <button type="submit">Kirim</button>
+</form>
+
+<p id="statusUcapan"></p>
+
+<script>
+    document.getElementById("ucapanForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        var formData = new FormData();
+        formData.append("type", "ucapan");
+        formData.append("client_id", document.getElementById("client_id_ucapan").value);
+        formData.append("nama", document.getElementById("nama_ucapan").value);
+        formData.append("ucapan", document.getElementById("ucapan").value);
+
+        fetch("https://script.google.com/macros/s/AKfycb.../exec", { // Ganti dengan URL Web App
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("statusUcapan").innerText = data;
+        })
+        .catch(error => {
+            document.getElementById("statusUcapan").innerText = "Terjadi kesalahan!";
+        });
+    });
+</script>
+
+
+									
 									<div class="business-solution wow fadeIn" data-wow-duration="3s" data-wow-delay="0.3s">
 										<input type="text" name="nama_komentar_undangan" id="nama_komentar_undangan" class="form-control" placeholder="Nama lengkap..." style="border: 1px solid #CCC;font-size: 1em;overflow-y: auto;overflow-x: hidden;margin-bottom: 10px;">
 										<div id="comments-container"></div>
@@ -2616,6 +2653,50 @@
 					<div class="row">
 						<div class="col-md-12">
 							<h2 class="text-center fontColor title">RSVP</h2>
+
+
+							<form id="rsvpForm">
+    <input type="hidden" id="client_id_rsvp" value="client_123">
+    <input type="text" id="nama_rsvp" placeholder="Nama Anda" required>
+    <select id="kehadiran">
+        <option value="Hadir">Hadir</option>
+        <option value="Berhalangan Hadir">Berhalangan Hadir</option>
+    </select>
+    <input type="number" id="jumlah" placeholder="Jumlah Kehadiran" required>
+    <input type="text" id="keterangan" placeholder="Pesan untuk Mempelai (Opsional)">
+    <button type="submit">Kirim</button>
+</form>
+
+<p id="statusRSVP"></p>
+
+<script>
+    document.getElementById("rsvpForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        var formData = new FormData();
+        formData.append("type", "rsvp");
+        formData.append("client_id", document.getElementById("client_id_rsvp").value);
+        formData.append("nama", document.getElementById("nama_rsvp").value);
+        formData.append("kehadiran", document.getElementById("kehadiran").value);
+        formData.append("jumlah", document.getElementById("jumlah").value);
+        formData.append("keterangan", document.getElementById("keterangan").value);
+
+        fetch("https://script.google.com/macros/s/AKfycb.../exec", { // Ganti dengan URL Web App
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("statusRSVP").innerText = data;
+        })
+        .catch(error => {
+            document.getElementById("statusRSVP").innerText = "Terjadi kesalahan!";
+        });
+    });
+</script>
+
+
+							
 							<p style="font-size: 12px;">
 								<span class="text-danger">*</span> : Wajib Diisikan
 							</p>
