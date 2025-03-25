@@ -2524,45 +2524,54 @@
 									<h2 class="text-center title wow fadeIn fontColor" data-wow-duration="3s" data-wow-delay="0.3s">Kirim Ucapan & Doa</h2>
 
 
-<form id="ucapanForm">
-    <input type="hidden" id="client_id_ucapan" value="client_123">
-    <input type="text" id="nama_ucapan" placeholder="Nama Anda" required>
-    <textarea id="ucapan" placeholder="Tulis ucapan..." required></textarea>
-    <button type="submit">Kirim</button>
-</form>
-
-<p id="statusUcapan"></p>
-
-<script>
-    document.getElementById("ucapanForm").addEventListener("submit", function(e) {
-        e.preventDefault();
-
-        var formData = new FormData();
-        formData.append("type", "ucapan");
-        formData.append("client_id", document.getElementById("client_id_ucapan").value);
-        formData.append("nama", document.getElementById("nama_ucapan").value);
-        formData.append("ucapan", document.getElementById("ucapan").value);
-
-        fetch("https://script.google.com/macros/s/AKfycbwGZznubTqjN6gKEiBJdMU018yt293WnkkewtjI_zJ66Ls_ubmi8dbVxxpISCdTVr5CTg/exec", { // Ganti dengan URL Web App
-            method: "POST",
-            body: formData
-        })
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById("statusUcapan").innerText = data;
-        })
-        .catch(error => {
-            document.getElementById("statusUcapan").innerText = "Terjadi kesalahan!";
-        });
-    });
-</script>
-
-
-									
-									<div class="business-solution wow fadeIn" data-wow-duration="3s" data-wow-delay="0.3s">
-										<input type="text" name="nama_komentar_undangan" id="nama_komentar_undangan" class="form-control" placeholder="Nama lengkap..." style="border: 1px solid #CCC;font-size: 1em;overflow-y: auto;overflow-x: hidden;margin-bottom: 10px;">
+									<div class="business-solution" data-aos="fadeIn" data-aos-offset="0" data-aos-delay="40" data-aos-duration="2500" data-aos-easing="ease">
+										
+										<!--
+										<input type="text" name="nama_komentar_undangan" id="nama_komentar_undangan" placeholder="Nama lengkap..." style="border: 1px solid #CCC;font-size: 1em;overflow-y: auto;overflow-x: hidden;margin-bottom: 10px;">
 										<div id="comments-container"></div>
+										-->
+										
+										
+										
+										<form id="ucapanForm">
+											<input type="hidden" id="client_id_ucapan" value="ulis-ambi">
+											<input id="nama_ucapan" type="text" class="form-control" style="font-size: 12pt; margin-bottom: 5px;" placeholder="Nama Lengkap..." required>
+											<textarea id="ucapan_ucapan" class="form-control"  style="font-size: 12pt; margin-bottom: 5px; height: 10vh;" placeholder="Tulis Ucapan..." required></textarea>
+											<button class="btn btn-primary float-right" type="submit">Kirim</button>
+										</form>
+										<p id="statusUcapan"></p>
+										
+										<div id="comment-list"></div>
+
 									</div>
+
+									<script>
+										document.getElementById("ucapanForm").addEventListener("submit", function(e) {
+											e.preventDefault();
+
+											var formData = new FormData();
+											formData.append("type", "ucapan");
+											formData.append("client_id", document.getElementById("client_id_ucapan").value);
+											formData.append("nama", document.getElementById("nama_ucapan").value);
+											formData.append("ucapan", document.getElementById("ucapan_ucapan").value);
+
+											fetch("https://script.google.com/macros/s/AKfycbwGZznubTqjN6gKEiBJdMU018yt293WnkkewtjI_zJ66Ls_ubmi8dbVxxpISCdTVr5CTg/exec", {
+												method: "POST",
+												body: formData
+											})
+											.then(response => response.text())
+											.then(data => {
+												document.getElementById("statusUcapan").innerText = data;
+											})
+											.catch(error => {
+												document.getElementById("statusUcapan").innerText = "Masalah saat menyimpan data, harap coba lagi nanti!";
+											});
+										});
+									</script>									
+
+
+
+                  
 									<div class="text-center mt-3 font-weight-bold wow fadeIn" data-wow-duration="3s" data-wow-delay="0.3s">Digital Invitation by <br>
 										<a href="https://krafta-visio.github.io/homepage/" style="color: #fb6262" target="_blank">
 											<img src='assets/Logo_Website.png' style='max-height:40px;'>
