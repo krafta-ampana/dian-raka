@@ -2567,7 +2567,63 @@
 												document.getElementById("statusUcapan").innerText = "Masalah saat menyimpan data, harap coba lagi nanti!";
 											});
 										});
-									</script>									
+									</script>
+
+										<script>
+	
+		document.addEventListener("DOMContentLoaded", function () {
+			fetchUcapan();
+		});
+
+		function fetchUcapan() {
+			const url = "https://script.google.com/macros/s/AKfycbzLMpJbt-OYibejuTHshU-UHAGxOCUiVXYMDHYQCQLJiSE3HveSU_GCqpr0_s-IxfLdGA/exec"; // Ganti dengan URL Web App yang baru
+
+			fetch(url)
+				.then(response => response.text())  // Karena kita pakai HtmlService, kita parse sebagai teks dulu
+				.then(text => JSON.parse(text))     // Lalu kita parse ke JSON
+				.then(data => {
+					const commentList = document.getElementById("comment-list");
+					commentList.innerHTML = ""; // Hapus data lama sebelum render ulang
+
+					if (data.length === 0) {
+						document.querySelector(".no-comments").style.display = "block";
+					} else {
+						document.querySelector(".no-comments").style.display = "none";
+
+						data.forEach(comment => {
+							const li = document.createElement("li");
+							li.classList.add("comment");
+							li.setAttribute("data-id", comment.id_komentar_undangan);
+
+							li.innerHTML = `
+								<div class="comment-wrapper">
+									<div class="profile-picture round" style="background-image: url('${comment.gambar}');"></div>
+									<time data-original="${comment.tgl_komentar_undangan}">${formatTanggal(comment.tgl_komentar_undangan)}</time>
+									<div class="name">
+										<span>${comment.nama_komentar_undangan}</span>
+									</div>
+									<div class="wrapper">
+										<div class="content">${comment.isi_komentar_undangan}</div>
+										<span class="actions"></span>
+									</div>
+								</div>
+								<ul class="child-comments"></ul>
+							`;
+							commentList.appendChild(li);
+						});
+					}
+				})
+				.catch(error => console.error("Error fetching comments:", error));
+		}
+
+		// Fungsi untuk format tanggal ke format "MM/DD/YYYY"
+		function formatTanggal(tanggal) {
+			let date = new Date(tanggal);
+			return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+		}
+	
+	</script>
+
 
 
 
